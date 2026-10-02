@@ -4,8 +4,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
 export const metadata: Metadata = {
-  title: "Meddot Solutions | Revenue Operations & Digital Growth for Healthcare",
-  description: "Medical billing, revenue cycle management, coding, credentialing, websites, and GoHighLevel services for independent healthcare practices.",
+  title: "Medical Billing for Independent Practices | Meddot Solutions",
+  description: "Medical billing, revenue cycle support, coding, credentialing, and digital services for independent practices and small medical groups.",
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };
 

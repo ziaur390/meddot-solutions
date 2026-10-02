@@ -41,7 +41,7 @@ export const revenueServices = {
   credentialing: {
     eyebrow: "REVENUE OPERATIONS / 04",
     title: "Credentialing with a clear path forward.",
-    intro: "Provider credentialing and enrollment involve detailed information, payer requirements, and patient follow-up.",
+    intro: "Provider credentialing and enrollment involve detailed information, payer requirements, and status follow-up.",
     overview: "Meddot can help organize the information and tasks involved in provider enrollment. Timing and requirements vary by payer, so each engagement begins with a defined scope.",
     items: [
       ["Information gathering", "Identify provider and practice details needed for the enrollment work."],
