@@ -487,3 +487,23 @@ html{scroll-padding-top:110px}
  .mobile-services-content a:hover,.mobile-services-content a:focus-visible{background:#eaf5f5;color:#00777b}
 }
 @media(max-width:800px){html{scroll-padding-top:90px}}
+
+/* Clear trust and specialty-fit content for healthcare practices. */
+.trust-band{padding:70px 0}
+.trust-content{display:grid;grid-template-columns:.8fr 1.2fr;column-gap:8%;align-items:start}
+.trust-heading h2,.specialty-fit h2{font-size:clamp(32px,3.3vw,46px);line-height:1.12;letter-spacing:-.04em;margin:10px 0 14px;text-wrap:balance}
+.trust-heading>p:not(.kicker),.specialty-fit-grid>div>p:not(.kicker){color:#536479;font-size:15px;line-height:1.7;margin:0;max-width:480px}
+.trust-band-inner{grid-template-columns:1fr;gap:0;padding:0}
+.trust-band-inner>div{padding:18px 0;border-bottom:1px solid #d5e7e8;gap:15px}
+.trust-band-inner>div:first-child{padding-top:7px}
+.trust-band-inner strong{font-size:15px}
+.trust-band-inner span{font-size:13px;line-height:1.55}
+.trust-note{grid-column:2;color:#536479;font-size:12px;line-height:1.55;margin:17px 0 0}
+.specialty-fit{background:#f4f8f9;padding-top:88px;padding-bottom:88px}
+.specialty-fit-grid{display:grid;grid-template-columns:1fr .8fr;gap:12%;align-items:center}
+.specialty-fit-grid>div>p:not(.kicker){max-width:600px}
+.specialty-fit-grid .text-link{margin-top:22px}
+.specialty-checklist{list-style:none;margin:0;padding:0;border-top:1px solid #cbdde3}
+.specialty-checklist li{display:flex;align-items:center;gap:13px;padding:18px 4px;border-bottom:1px solid #cbdde3;color:#243c58;font-size:15px;font-weight:650}
+.specialty-checklist svg{flex:none;color:#008f91}
+@media(max-width:800px){.trust-content,.specialty-fit-grid{grid-template-columns:1fr;gap:25px}.trust-band{padding:55px 0}.trust-heading>p:not(.kicker){max-width:600px}.trust-note{grid-column:1;margin-top:0}.specialty-fit{padding-top:62px;padding-bottom:62px}.specialty-checklist li{font-size:14px}}

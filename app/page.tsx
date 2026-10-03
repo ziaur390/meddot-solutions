@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links work reliably in the current Sites runtime. */
 import Image from "next/image";
-import { ArrowUpRight, Check, CircleDot, FileCheck2, MessageSquareText } from "lucide-react";
+import { ArrowUpRight, Check, CircleDot, FileCheck2, MessageSquareText, ShieldCheck, ListChecks, UsersRound } from "lucide-react";
 import { ProcessTabs } from "@/components/process-tabs";
 
 const moments = [
@@ -49,6 +49,18 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="trust-band" aria-labelledby="trust-heading">
+        <div className="container trust-content">
+          <div className="trust-heading"><p className="kicker">A CLEAR, CAREFUL START</p><h2 id="trust-heading">Trust starts with the way the work is set up.</h2><p>Know what happens, who is responsible, and how sensitive information will be handled before work begins.</p></div>
+          <div className="trust-band-inner">
+            <div><ShieldCheck size={23}/><p><strong>HIPAA requirements considered</strong><span>Before services involving PHI begin, we agree on access, approved systems, safeguards, and any required business associate agreement.</span></p></div>
+            <div><ListChecks size={23}/><p><strong>Scope and ownership made clear</strong><span>Agree on responsibilities, handoffs, systems, and reporting before an engagement begins.</span></p></div>
+            <div><UsersRound size={23}/><p><strong>Your team stays in the loop</strong><span>Questions, exceptions, and next steps stay visible to the people who know your practice.</span></p></div>
+          </div>
+          <p className="trust-note">Please keep website inquiries general. Do not submit patient names, medical records, or other protected health information.</p>
+        </div>
+      </section>
+
       <section className="start-section section" id="start-here">
         <div className="container start-grid">
           <div className="start-intro"><h2>Where is the work getting stuck?</h2><p>Start with the issue closest to yours. We can define the right scope together.</p><a className="text-link" href="/contact#consultation-form">Tell us what you need <ArrowUpRight size={16}/></a></div>
@@ -71,6 +83,13 @@ export default function Home() {
           <div className="revenue-list">
             {revenueLinks.map(([title, description, href]) => <a className="revenue-row" href={href} key={title}><span aria-hidden="true"><CircleDot size={18} strokeWidth={1.4}/></span><div><h3>{title}</h3><p>{description}</p></div><ArrowUpRight size={21} strokeWidth={1.6} /></a>)}
           </div>
+        </div>
+      </section>
+
+      <section className="specialty-fit section" aria-labelledby="specialty-heading">
+        <div className="container specialty-fit-grid">
+          <div><p className="kicker">SPECIALTY BILLING</p><h2 id="specialty-heading">The details change by specialty.</h2><p>Different practices bring different documentation, coding patterns, authorization needs, payer rules, and systems. We start by understanding your service mix, then define which workflows Meddot can support.</p><a className="text-link" href="/services/revenue-operations/specialty-billing">How specialty billing is scoped <ArrowUpRight size={16}/></a></div>
+          <ul className="specialty-checklist"><li><Check size={18}/> Services and visit types</li><li><Check size={18}/> Documentation and coding handoffs</li><li><Check size={18}/> Authorization and payer requirements</li><li><Check size={18}/> EHR, billing tools, and current process</li></ul>
         </div>
       </section>
 
