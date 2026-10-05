@@ -1,6 +1,6 @@
 # Meddot Solutions SEO and GEO audit
 
-**Scope:** Source review of the Next.js project for `https://meddot-solutions.vercel.app/`. The live URL could not be fetched by the available browser/search tool, so production response headers, rendered metadata, index status, mobile appearance, Core Web Vitals, rankings, and AI citations were not independently verified. Scores and recommendations are not Google metrics; no Search Console or analytics data was available.
+**Scope:** Source review plus a live browser check of the home and medical billing detail pages at `https://meddot-solutions.vercel.app/` on 2026-10-05. The browser blocked direct inspection of `robots.txt` and `sitemap.xml`; production response headers, index status, Core Web Vitals, rankings, and AI citations were not independently verified. Scores and recommendations are not Google metrics; no Search Console or analytics data was available.
 
 ## What changed in this pass
 
@@ -30,7 +30,7 @@ The new specialty section describes how coding, authorization, payer rules, visi
 
 ### Medium: set up Search Console and verify production
 
-After deployment, submit `https://meddot-solutions.vercel.app/sitemap.xml` in Google Search Console and check indexing, canonical selection, crawl errors, the Search generative AI inclusion setting, and the Generative AI performance report where available. Also verify `/robots.txt`, canonical tags, social previews, and JSON-LD on the live host. No production crawl or Search Console data was available for this review.
+Submit `https://meddot-solutions.vercel.app/sitemap.xml` in Google Search Console and check indexing, canonical selection, crawl errors, the Search generative AI inclusion setting, and the Generative AI performance report where available. The live homepage and a service detail page now return the expected titles, descriptions, canonicals, Open Graph tags, Organization/WebSite schema, and Service/Breadcrumb schema. Direct inspection of `/robots.txt` and `/sitemap.xml` was blocked in the browser, so verify those endpoints in Search Console after deployment.
 
 ### Medium: publish expert-led resources, not generic volume
 
@@ -48,4 +48,4 @@ Google’s current guidance says generative AI visibility relies on the same cra
 
 - Targeted ESLint and `tsc --noEmit` passed for the SEO changes.
 - Next.js compiled the application and passed TypeScript during the production build, but static prerender stopped on a Windows `EPERM` error creating a generated `.next` segment directory. A complete production build is not confirmed.
-- The live deployment could not be fetched, so the implementation still needs a production check after Vercel deploys it.
+- The live homepage and medical billing service page were checked after the push; both show the updated metadata and schema. The local Next.js build compiled and passed TypeScript but static prerender stopped on a Windows `EPERM` error creating a generated `.next` segment directory. The Vercel deployment is serving the updated routes, but inspect the crawler files through Search Console because the browser blocked their direct text endpoints.
