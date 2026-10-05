@@ -1,8 +1,8 @@
 export const revenueServices = {
   "medical-billing": {
     eyebrow: "REVENUE OPERATIONS / 01",
-    title: "Medical billing that stays on the details.",
-    intro: "A reliable billing process needs clear information, timely work, and steady follow-through. Meddot helps practices keep the administrative side of care moving.",
+    title: "Medical billing services for independent practices.",
+    intro: "Meddot supports independent practices with claim preparation, submission tracking, payer follow-up, and clear billing communication. We agree on workflows and responsibilities before work begins.",
     overview: "Billing is more than sending a claim. It involves preparing information, tracking submissions, responding to rejections, and keeping the practice informed about what needs attention.",
     items: [
       ["Claim preparation", "Organize the information needed for accurate claim creation and submission."],
@@ -14,8 +14,8 @@ export const revenueServices = {
   },
   "revenue-cycle-management": {
     eyebrow: "REVENUE OPERATIONS / 02",
-    title: "A clearer view of the revenue cycle.",
-    intro: "Revenue cycle management connects the steps around a patient visit, from information gathering through payment follow-up.",
+    title: "Revenue cycle management for medical practices.",
+    intro: "Revenue cycle management connects patient and payer information, coding, claims, denials, and payment follow-up. Meddot helps small practices make these handoffs easier to see and manage.",
     overview: "A practice needs each handoff to work: patient and payer information, coding, claims, denials, and reporting. Meddot brings an operational view to these connected tasks.",
     items: [
       ["Connected workflows", "Identify how front-office information, coding, and billing depend on one another."],
@@ -27,8 +27,8 @@ export const revenueServices = {
   },
   "medical-coding": {
     eyebrow: "REVENUE OPERATIONS / 03",
-    title: "Medical coding with care for the source.",
-    intro: "Coding turns documented services into information used in claims. Accuracy starts with the clinical record and a clear path for questions.",
+    title: "Medical coding support for healthcare practices.",
+    intro: "Medical coding translates documented services into codes used for billing. Meddot’s scope starts with the clinical record, agreed coding responsibilities, and a clear path for documentation questions.",
     overview: "Meddot's coding service is designed to support consistent review of documentation and the codes used for billing. Final scope depends on your specialty and workflow.",
     items: [
       ["Documentation review", "Work from the information recorded for the patient encounter."],
@@ -40,8 +40,8 @@ export const revenueServices = {
   },
   credentialing: {
     eyebrow: "REVENUE OPERATIONS / 04",
-    title: "Credentialing with a clear path forward.",
-    intro: "Provider credentialing and enrollment involve detailed information, payer requirements, and status follow-up.",
+    title: "Provider credentialing and payer enrollment support.",
+    intro: "Provider credentialing and payer enrollment require accurate practice information, payer-specific applications, and status follow-up. Meddot helps organize those tasks within an agreed scope.",
     overview: "Meddot can help organize the information and tasks involved in provider enrollment. Timing and requirements vary by payer, so each engagement begins with a defined scope.",
     items: [
       ["Information gathering", "Identify provider and practice details needed for the enrollment work."],
@@ -52,29 +52,29 @@ export const revenueServices = {
     question: "Preparing to enroll a provider or grow your practice?",
   },
   "ar-recovery": {
-    eyebrow: "Revenue operations", title: "A practical plan for aging receivables.",
-    intro: "Prioritize unpaid claims by age, value, payer status, and the next useful action.",
+    eyebrow: "Revenue operations", title: "A/R recovery and aged claim follow-up.",
+    intro: "A/R recovery reviews unpaid claims by age, payer status, and next action. Meddot helps practices organize follow-up and keep unresolved balances visible.",
     overview: "Accounts receivable recovery works best when the backlog is segmented. A proposed engagement would review available aging data, agree on priorities, and document follow-up outcomes.",
     items: [["Aging review", "Group open balances to see where attention is needed first."], ["Payer follow-up", "Investigate claim status and document responses."], ["Denial resolution", "Route correctable denials into an agreed appeal or resubmission process."], ["Outcome tracking", "Show what was resolved, remains open, or needs practice input."]],
     question: "Want a clearer picture of outstanding claims?",
   },
   "specialty-billing": {
-    eyebrow: "Revenue operations", title: "Billing shaped around your specialty's workflow.",
-    intro: "Define billing steps around the documentation, coding, authorization, and payer rules your services require.",
+    eyebrow: "Revenue operations", title: "Specialty medical billing shaped around your workflow.",
+    intro: "Specialty medical billing depends on the services, documentation, coding, authorizations, and payer rules involved. Meddot scopes support after reviewing your actual service mix and workflow.",
     overview: "Specialties differ in visit types, coding patterns, and payer requirements. We would review your service lines and define a scope around them rather than assume one process fits all.",
     items: [["Service-line review", "Understand common encounters and billing requirements."], ["Documentation handoffs", "Identify what billing needs from the clinical team."], ["Authorization checks", "Clarify how referrals and prior authorizations enter the process where relevant."], ["Payer exceptions", "Track recurring specialty-specific issues and their resolution paths."]],
     question: "Need billing support shaped to your service mix?",
   },
   "monthly-billing-audit": {
-    eyebrow: "Revenue operations", title: "A regular check on billing quality.",
-    intro: "Review a defined sample and key workflow signals each month to surface issues early.",
+    eyebrow: "Revenue operations", title: "Medical billing audits and quality review.",
+    intro: "A billing audit reviews an agreed sample of claims and workflow signals to identify patterns for follow-up. Meddot defines the sample, measures, access, and reporting scope with your team.",
     overview: "A monthly audit makes patterns easier to see. We would agree on the sample, measures, access, and reporting format so findings can lead to action.",
     items: [["Sample selection", "Define which claims or encounters should be reviewed."], ["Accuracy checks", "Compare documentation, coding, charges, and claim data within scope."], ["Denial themes", "Highlight repeated errors or payer responses."], ["Action summary", "Share findings, owners, and suggested next steps."]],
     question: "Would a monthly review help your team?",
   },
   "clearinghouse-solutions": {
-    eyebrow: "Revenue operations", title: "Cleaner claim exchange with your clearinghouse.",
-    intro: "Support electronic claim submissions, responses, and rejection workflows.",
+    eyebrow: "Revenue operations", title: "Clearinghouse setup and electronic claim support.",
+    intro: "Clearinghouse support covers agreed electronic claim submissions, payer responses, and rejection workflows. Setup depends on your practice software, clearinghouse, and payer requirements.",
     overview: "The clearinghouse links your billing system and payers. We would define transaction types, connections, and exception handling around the systems your practice uses.",
     items: [["Connection planning", "Document billing system and payer routing needs."], ["Submission workflow", "Define how claims are sent and acknowledgments are reviewed."], ["Rejection handling", "Assign ownership for corrections and resubmission."], ["Reporting checks", "Make response files and outstanding errors visible to the team."]],
     question: "Need to improve your electronic claims workflow?",

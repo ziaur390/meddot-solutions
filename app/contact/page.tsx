@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
 import { ArrowDown, Mail, ShieldAlert } from "lucide-react";
 import { digitalServices, revenueNames } from "@/lib/service-content";
+import { pageMetadata } from "@/lib/site-metadata";
 
-export const metadata: Metadata = {
-  title: "Request a Consultation | Meddot Solutions",
-  description: "Tell Meddot Solutions about your practice and the services you need. Prepare a consultation request by email.",
-};
+export const metadata = pageMetadata("/contact", "Request a Medical Billing Consultation | Meddot Solutions", "Tell Meddot about your practice and needs. Prepare a consultation request for billing, coding, credentialing, A/R, or digital services.");
 
 const email = "ziaurrahman.26261@gmail.com";
 

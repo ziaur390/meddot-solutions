@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { digitalServices } from "@/lib/service-content";
+import { pageMetadata } from "@/lib/site-metadata";
 
-export const metadata: Metadata = {
-  title: "Healthcare Digital & Integration Services | Meddot Solutions",
-  description: "Explore EHR and EMR integration, EDI setup, healthcare SEO, Google Ads, website development, and GoHighLevel services.",
-};
+export const metadata = pageMetadata("/services/digital-growth", "Healthcare SEO & Website Services | Meddot Solutions", "Explore healthcare website development, SEO, Google Ads, GoHighLevel workflows, and EHR, EMR, and EDI integration planning.");
 
 export default function DigitalGrowth() {
   return <main>

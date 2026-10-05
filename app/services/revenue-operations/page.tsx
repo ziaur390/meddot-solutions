@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { revenueServices, revenueNames } from "@/lib/service-content";
+import { pageMetadata } from "@/lib/site-metadata";
 
-export const metadata: Metadata = {
-  title: "Medical Billing & Revenue Services | Meddot Solutions",
-  description: "Explore medical billing, coding, credentialing, AR recovery, specialty billing, audits, and clearinghouse support for independent practices.",
-};
+export const metadata = pageMetadata("/services/revenue-operations", "Medical Billing & RCM Services | Meddot Solutions", "Explore medical billing, revenue cycle management, coding, credentialing, A/R recovery, specialty billing, audits, and clearinghouse support.");
 
 export default function RevenueOperations() {
   return <main>

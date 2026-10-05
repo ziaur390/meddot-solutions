@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { ProcessTabs } from "@/components/process-tabs";
+import { pageMetadata } from "@/lib/site-metadata";
 
-export const metadata: Metadata = {
-  title: "How We Work | Meddot Solutions",
-  description: "See how Meddot Solutions begins a working relationship with an independent healthcare practice.",
-};
+export const metadata = pageMetadata("/how-we-work", "How Medical Billing Support Works | Meddot Solutions", "See how Meddot scopes medical billing and practice operations support around your workflows, systems, responsibilities, and goals.");
 
 export default function HowWeWork() {
   return <main>

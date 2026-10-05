@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { pageMetadata } from "@/lib/site-metadata";
 
-export const metadata: Metadata = {
-  title: "About Meddot Solutions",
-  description: "Why Meddot Solutions focuses on medical billing, practice operations, and digital support for independent healthcare teams.",
-};
+export const metadata = pageMetadata("/about", "About Meddot Solutions | Medical Billing Support", "Learn how Meddot Solutions supports independent practices with medical billing, revenue cycle workflows, and practical digital services.");
 
 export default function About() {
   return <main>
