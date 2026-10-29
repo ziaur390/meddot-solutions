@@ -23,9 +23,8 @@ export default function Home() {
       <section className="hero-section hero-section-refresh">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <p className="hero-context">Medical billing and practice growth for independent care teams</p>
             <h1>Medical billing that moves your practice forward.</h1>
-            <p className="hero-lede">Claims, coding, payer follow-up, and the digital details around your practice deserve a clearer plan. Tell us where your team needs support.</p>
+            <p className="hero-lede">For independent practices and small medical groups, claims, coding, payer follow-up, and digital support deserve a clearer plan. Tell us where your team needs support.</p>
             <div className="hero-actions">
               <a className="button button-teal" href="/contact#consultation-form">Talk about your practice <ArrowUpRight size={17} /></a>
               <a className="text-link" href="#start-here">Explore where we can help <ArrowUpRight size={16} /></a>
@@ -34,6 +33,17 @@ export default function Home() {
           </div>
           <div className="hero-visual">
             <Image src="/billing-team-hero.webp" alt="Illustrative scene of two practice team members reviewing billing work together" fill priority sizes="(max-width: 900px) 100vw, 48vw" />
+            <div className="workflow-card" role="group" aria-label="Illustrative billing workflow">
+              <div className="workflow-card-heading">
+                <div><span>Illustrative workflow</span><h2>A clearer claim path</h2></div>
+                <span className="workflow-card-mark" aria-hidden="true"><CircleDot size={20} /></span>
+              </div>
+              <ol className="workflow-stages">
+                <li><span className="workflow-stage-dot" aria-hidden="true" /><div><strong>Review visit details</strong><small>Check documentation and coding needs</small></div></li>
+                <li><span className="workflow-stage-dot" aria-hidden="true" /><div><strong>Prepare the claim</strong><small>Align information before submission</small></div></li>
+                <li><span className="workflow-stage-dot" aria-hidden="true" /><div><strong>Follow up with the payer</strong><small>Track responses and next actions</small></div></li>
+              </ol>
+            </div>
             <div className="hero-visual-label"><span className="label-rule" /> The work behind patient care</div>
             <span className="image-disclosure">Illustrative image</span>
           </div>
@@ -51,7 +61,7 @@ export default function Home() {
 
       <section className="trust-band" aria-labelledby="trust-heading">
         <div className="container trust-content">
-          <div className="trust-heading"><p className="kicker">A CLEAR, CAREFUL START</p><h2 id="trust-heading">Trust starts with the way the work is set up.</h2><p>Know what happens, who is responsible, and how sensitive information will be handled before work begins.</p></div>
+          <div className="trust-heading"><h2 id="trust-heading">Trust starts with the way the work is set up.</h2><p>Know what happens, who is responsible, and how sensitive information will be handled before work begins.</p></div>
           <div className="trust-band-inner">
             <div><ShieldCheck size={23}/><p><strong>HIPAA requirements considered</strong><span>Before services involving PHI begin, we agree on access, approved systems, safeguards, and any required business associate agreement.</span></p></div>
             <div><ListChecks size={23}/><p><strong>Scope and ownership made clear</strong><span>Agree on responsibilities, handoffs, systems, and reporting before an engagement begins.</span></p></div>
@@ -88,7 +98,7 @@ export default function Home() {
 
       <section className="specialty-fit section" aria-labelledby="specialty-heading">
         <div className="container specialty-fit-grid">
-          <div><p className="kicker">SPECIALTY BILLING</p><h2 id="specialty-heading">The details change by specialty.</h2><p>Different practices bring different documentation, coding patterns, authorization needs, payer rules, and systems. We start by understanding your service mix, then define which workflows Meddot can support.</p><a className="text-link" href="/services/revenue-operations/specialty-billing">How specialty billing is scoped <ArrowUpRight size={16}/></a></div>
+          <div><h2 id="specialty-heading">The details change by specialty.</h2><p>Different practices bring different documentation, coding patterns, authorization needs, payer rules, and systems. We start by understanding your service mix, then define which workflows Meddot can support.</p><a className="text-link" href="/services/revenue-operations/specialty-billing">How specialty billing is scoped <ArrowUpRight size={16}/></a></div>
           <ul className="specialty-checklist"><li><Check size={18}/> Services and visit types</li><li><Check size={18}/> Documentation and coding handoffs</li><li><Check size={18}/> Authorization and payer requirements</li><li><Check size={18}/> EHR, billing tools, and current process</li></ul>
         </div>
       </section>
