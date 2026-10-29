@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./interior.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { canonicalUrl, pageMetadata, SITE_NAME, SITE_URL, SOCIAL_PROFILES } from "@/lib/site-metadata";
@@ -40,5 +41,5 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const structuredData = JSON.stringify([organizationSchema, websiteSchema]).replace(/</g, "\\u003c");
-  return <html lang="en"><head><link rel="preconnect" href="https://api.fontshare.com"/><link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous"/><link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap"/></head><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }}/><SiteHeader />{children}<SiteFooter /></body></html>;
+  return <html lang="en"><head><link rel="preconnect" href="https://api.fontshare.com"/><link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous"/><link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap"/></head><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }}/><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader />{children}<SiteFooter /></body></html>;
 }

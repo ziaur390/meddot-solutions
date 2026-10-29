@@ -19,7 +19,7 @@ const revenueLinks = [
 
 export default function Home() {
   return (
-    <main>
+    <main id="main-content">
       <section className="hero-section hero-section-refresh">
         <div className="container hero-grid">
           <div className="hero-copy">
