@@ -1,6 +1,15 @@
-# vinext-starter
+# Meddot Solutions
 
-A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
+Medical billing, revenue cycle support, and practice growth services for independent U.S. healthcare practices.
+
+- Live website: [meddot-solutions.vercel.app](https://meddot-solutions.vercel.app/)
+- Start here: [complete deployment, domain, and email guide](DEPLOY-VERCEL.md)
+- Open or print: [illustrated launch guide](docs/meddot-launch-guide.html)
+- Public launch settings: copy [.env.example](.env.example) to ignored `.env.local` for local configuration; set the same public variables in Vercel and redeploy.
+
+Vercel builds with `npm run build:vercel`, including verified local Satoshi font preparation. After building, `npm run test:security` checks the consultation flow and browser protections. The current form prepares an email draft; the visitor sends it from their own email app.
+
+The remaining developer notes describe the retained Sites/Cloudflare runtime. They do not replace the Vercel settings in the launch guide.
 
 ## Prerequisites
 

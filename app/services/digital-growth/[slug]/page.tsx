@@ -51,14 +51,15 @@ export default async function DigitalService({ params }: { params: Promise<{ slu
   const service = digitalServices[slug as DigitalSlug];
   if (!service) notFound();
   const serviceSlug = slug as DigitalSlug;
+  const consultationHref = `/contact?service=${encodeURIComponent(slug)}#consultation-form`;
   return <main className="interior-page digital-detail-page" id="main-content">
     <ServiceStructuredData name={service.name} description={service.intro} path={`/services/digital-growth/${slug}`} sectionName="Digital and integration services" sectionPath="/services/digital-growth" />
     <InteriorHero title={service.name} description={service.intro} image="/images/digital-growth.webp" imageAlt="Illustration of a healthcare website and connected digital practice tools" variant="digital" breadcrumb={[{ label: "Home", href: "/" }, { label: "Digital growth", href: "/services/digital-growth" }, { label: service.name, href: `/services/digital-growth/${slug}` }]}>
-      <div className="interior-hero-actions"><a className="button button-teal" href="/contact#consultation-form">Request a consultation <ArrowUpRight size={17}/></a><a className="text-link" href="#service-scope">What’s included <ArrowUpRight size={16}/></a></div>
+      <div className="interior-hero-actions"><a className="button button-teal" href={consultationHref}>Request a consultation <ArrowUpRight size={17} aria-hidden="true"/></a><a className="text-link" href="#service-scope">What’s included <ArrowUpRight size={16} aria-hidden="true"/></a></div>
     </InteriorHero>
     <section className="interior-section service-scope-section" id="service-scope"><div className="container service-overview-grid"><div className="service-overview-copy"><h2>What the work can include.</h2><p>{service.overview}</p><div className="scope-agreement"><h3>Scope tailored to your practice</h3><p>Your platforms, approvals, and vendor capabilities shape the final work. We confirm feasibility, responsibilities, and deliverables together.</p><ul className="scope-agreement-list"><li><Check size={16}/> A defined project scope</li><li><Check size={16}/> Reviewed systems and permissions</li><li><Check size={16}/> Agreed review and handoff points</li></ul></div></div><div className="service-scope-list">{service.items.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}</div></div></section>
     <section className="interior-section service-flow-section"><div className="container"><ServiceWorkbench variant="digital" title={`${service.name} in context`} stages={digitalFlow[serviceSlug]}/></div></section>
     <section className="interior-section related-services"><div className="container"><div className="related-services-heading"><h2>Build on the right foundations.</h2><a className="text-link" href="/services/digital-growth">All digital services <ArrowUpRight size={16}/></a></div><div className="related-service-links">{related[serviceSlug].map(relatedSlug => <a href={`/services/digital-growth/${relatedSlug}`} key={relatedSlug}><h3>{digitalServices[relatedSlug].name}</h3><ArrowUpRight size={22} aria-hidden="true"/></a>)}</div></div></section>
-    <PageClose title="Let’s discuss your current setup." description="Share your platforms, your goals, and the experience you would like to improve." label="Talk with Meddot"/>
+    <PageClose title="Let’s discuss your current setup." description="Share your platforms, your goals, and the experience you would like to improve." href={consultationHref}/>
   </main>;
 }

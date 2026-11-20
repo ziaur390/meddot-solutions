@@ -77,7 +77,7 @@ export function SiteHeader() {
         <summary aria-controls="desktop-service-links">Services <ChevronDown size={16} strokeWidth={2} aria-hidden="true" /></summary>
         <div className="services-dropdown" id="desktop-service-links">
           <div className="services-menu-heading"><div><strong>Explore services</strong><p>Find focused support for your practice.</p></div><a href="/contact">Discuss your needs <ArrowUpRight size={16} aria-hidden="true" /></a></div>
-          <div className="services-menu-grid"><ServiceLinks group="Revenue operations" overviewHref="/services/revenue-operations" links={revenueLinks} pathname={pathname} /><ServiceLinks group="Digital growth" overviewHref="/services/digital-growth" links={digitalLinks} pathname={pathname} /></div>
+          <div className="services-menu-grid"><ServiceLinks group="Medical billing & RCM" overviewHref="/services/revenue-operations" links={revenueLinks} pathname={pathname} /><ServiceLinks group="Digital growth" overviewHref="/services/digital-growth" links={digitalLinks} pathname={pathname} /></div>
           <a className="menu-ai-link" href="/services/healthcare-ai" aria-current={pathname === "/services/healthcare-ai" ? "page" : undefined}><span>Healthcare AI <small>In development</small></span><ArrowUpRight size={17} aria-hidden="true" /></a>
         </div>
       </details>

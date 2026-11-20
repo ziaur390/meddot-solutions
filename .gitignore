@@ -30,6 +30,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -46,3 +47,11 @@ next-env.d.ts
 /work/
 /.npm-cache/
 *.tsbuildinfo
+
+# Licensed fonts are fetched from Fontshare for this website at setup/build time.
+/public/fonts/*.woff2
+/public/fonts/*.woff
+/public/fonts/*.ttf
+/public/fonts/*.otf
+/public/fonts/*.eot
+/public/fonts/*.tmp

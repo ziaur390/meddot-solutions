@@ -2,6 +2,8 @@
 
 **Reviewed:** November 3, 2026. **Scope:** the Next.js marketing website, its consultation endpoint, dependency lockfile, and repository checks.
 
+**Release update — November 20, 2026:** upgraded Next.js to **16.4.5** after the November 19 advisories affecting versions through 16.4.4, including the [image-optimization SVG rejection issue](https://github.com/advisories/GHSA-7qx7-33qx-rqx2). The new production-only audit reports **zero known vulnerabilities**. Production build, lint, TypeScript, and **10** regression tests passed, including service-intent preselection and local font integrity. Satoshi is now prepared from the official source with a pinned hash at build time and served locally; consultation responses retain script blocking and authorize only same-origin font loading. The full-tree counts and findings below record the November 3 review; they are not a fresh full-tree or infrastructure audit.
+
 ## Executive summary
 
 The review identified affected framework/dependency versions and missing application-level request and browser protections. Patched dependencies, a bounded same-origin form handler, stronger response policies, and automated checks are now implemented. The production-only npm audit reports **zero known vulnerabilities**. The complete dependency tree has **24 moderate findings**, confined to development dependencies and their transitive chains; these remain tracked below.

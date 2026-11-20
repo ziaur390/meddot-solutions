@@ -67,15 +67,44 @@ test("a valid inquiry reaches review and remains private, unindexed, and script-
   const html = await response.text();
   assert.equal(response.status, 200);
   assert.match(html, /Your request is ready/);
-  assert.match(html, /mailto:ziaurrahman\.26261@gmail\.com\?subject=/);
+  assert.match(html, /mailto:[A-Za-z0-9._%+@-]+\?subject=/);
   assert.match(response.headers.get("cache-control"), /no-store/);
   assert.match(response.headers.get("x-robots-tag"), /noindex/);
   assert.equal(response.headers.get("referrer-policy"), "no-referrer");
   const csp = response.headers.get("content-security-policy");
   assert.match(csp, /script-src 'none'/);
+  assert.match(csp, /font-src 'self'/);
+  assert.doesNotMatch(html, /https:\/\/(?:api|cdn)\.fontshare\.com/);
   const style = html.match(/<style>([\s\S]*?)<\/style>/)?.[1];
   assert.ok(style);
   assert.ok(csp.includes(`'sha256-${createHash("sha256").update(style).digest("base64")}'`));
+});
+
+test("service inquiries preserve valid intent and reject unknown or repeated selections", async () => {
+  for (const [query, selected] of [
+    ["service=medical-billing", "Medical billing"],
+    ["service=healthcare-web-development", "Healthcare web development"],
+    ["service=healthcare-ai", "Healthcare AI (in development)"],
+    ["service=not-a-service", ""],
+    ["service=medical-billing&service=credentialing", ""],
+  ]) {
+    const response = await fetch(`${origin}/contact?${query}`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    const select = html.match(/<select\b[^>]*id="service"[\s\S]*?<\/select>/)?.[0];
+    assert.ok(select);
+    const option = [...select.matchAll(/<option\b([^>]*)>/g)].find(match => /\bselected(?:="")?/.test(match[1]));
+    assert.ok(option);
+    assert.equal(option[1].match(/\bvalue="([^"]*)"/)?.[1], selected);
+  }
+});
+
+test("Satoshi is served locally as the prepared WOFF2 font", async () => {
+  const response = await fetch(`${origin}/fonts/Satoshi-Variable.woff2`);
+  assert.equal(response.status, 200);
+  const bytes = Buffer.from(await response.arrayBuffer());
+  assert.equal(bytes.subarray(0, 4).toString(), "wOF2");
+  assert.equal(createHash("sha256").update(bytes).digest("hex"), "e739aff9b4d02c264341d6d4872edcda28e79373aeda936f659566a1cd3eb47f");
 });
 
 test("HTML-shaped input is displayed as escaped text", async () => {

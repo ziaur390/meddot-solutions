@@ -1,9 +1,10 @@
 import { createHash } from "node:crypto";
 import { digitalServices, revenueNames } from "@/lib/service-content";
+import { CONTACT_EMAIL } from "@/lib/site-config";
 
 export const runtime = "nodejs";
 
-const recipient = "ziaurrahman.26261@gmail.com";
+const recipient = CONTACT_EMAIL;
 const maximumBodyBytes = 16 * 1024;
 const fieldLimits = { name: 100, practice: 120, email: 160, phone: 40, service: 100, message: 1000 } as const;
 const allowedServices = new Set([
@@ -19,19 +20,19 @@ function escapeHtml(value: string) {
   })[character] ?? character);
 }
 
-const pageStyles = "body{margin:0;background:#f2f8f9;color:#071a42;font:16px/1.6 Satoshi,Arial,sans-serif}main{max-width:700px;margin:7vh auto;padding:36px;background:#fff}a{color:#00777b}h1{font-size:clamp(32px,6vw,49px);line-height:1.12;letter-spacing:-.035em;margin:0 0 16px}p{color:#536479}.button{display:inline-block;background:#008f91;color:#fff;text-decoration:none;font-weight:700;padding:14px 22px;margin:16px 0}.summary{border-top:1px solid #d8e4e9;margin-top:23px;padding-top:20px}.summary div{padding:8px 0}.summary strong{display:block;font-size:13px;color:#3c5267}.summary p{white-space:pre-wrap;margin:5px 0}.note{font-size:14px;border-top:1px solid #d8e4e9;padding-top:18px;margin-top:22px}@media(max-width:760px){main{margin:0;padding:28px 20px;min-height:100vh}}";
+const pageStyles = "@font-face{font-family:Satoshi;src:url('/fonts/Satoshi-Variable.woff2') format('woff2');font-style:normal;font-weight:300 900;font-display:swap}body{margin:0;background:#f2f8f9;color:#071a42;font:16px/1.6 Satoshi,Arial,sans-serif}main{max-width:700px;margin:7vh auto;padding:36px;background:#fff}a{color:#00777b}h1{font-size:clamp(32px,6vw,49px);line-height:1.12;letter-spacing:-.035em;margin:0 0 16px}p{color:#536479}.button{display:inline-block;background:#007779;color:#fff;text-decoration:none;font-weight:700;padding:14px 22px;margin:16px 0}.summary{border-top:1px solid #d8e4e9;margin-top:23px;padding-top:20px}.summary div{padding:8px 0}.summary strong{display:block;font-size:13px;color:#3c5267}.summary p{white-space:pre-wrap;margin:5px 0}.note{font-size:14px;border-top:1px solid #d8e4e9;padding-top:18px;margin-top:22px}@media(max-width:760px){main{margin:0;padding:28px 20px;min-height:100vh}}";
 const styleHash = createHash("sha256").update(pageStyles).digest("base64");
 
 function page(title: string, content: string, status = 200) {
   // This response reflects form fields, so it runs no scripts and authorizes only its fixed stylesheet.
-  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><title>${escapeHtml(title)} | Meddot Solutions</title><link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&amp;display=swap"><style>${pageStyles}</style></head><body><main><a href="/" aria-label="Meddot Solutions home">Meddot Solutions</a>${content}</main></body></html>`, { status, headers: {
+  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive"><title>${escapeHtml(title)} | Meddot Solutions</title><link rel="preload" href="/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin="anonymous"><style>${pageStyles}</style></head><body><main><a href="/" aria-label="Meddot Solutions home">Meddot Solutions</a>${content}</main></body></html>`, { status, headers: {
     "Content-Type": "text/html; charset=utf-8",
     "Cache-Control": "private, no-store, max-age=0",
     "X-Content-Type-Options": "nosniff",
     "X-Frame-Options": "DENY",
     "Referrer-Policy": "no-referrer",
     "X-Robots-Tag": "noindex, nofollow, noarchive",
-    "Content-Security-Policy": `default-src 'none'; script-src 'none'; style-src 'sha256-${styleHash}' https://api.fontshare.com; font-src https://cdn.fontshare.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'`,
+    "Content-Security-Policy": `default-src 'none'; script-src 'none'; style-src 'sha256-${styleHash}'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; object-src 'none'`,
   } });
 }
 

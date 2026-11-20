@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
-export const SITE_URL = "https://meddot-solutions.vercel.app";
+import { SITE_URL } from "@/lib/site-config";
+export { SITE_URL };
 export const SITE_NAME = "Meddot Solutions";
 
 export const SOCIAL_PROFILES = [

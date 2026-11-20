@@ -56,14 +56,15 @@ export default async function RevenueService({ params }: { params: Promise<{ slu
   const service = revenueServices[slug as RevenueSlug];
   if (!service) notFound();
   const serviceSlug = slug as RevenueSlug;
+  const consultationHref = `/contact?service=${encodeURIComponent(slug)}#consultation-form`;
   return <main className="interior-page revenue-detail-page" id="main-content">
     <ServiceStructuredData name={revenueNames[slug as RevenueSlug]} description={service.intro} path={`/services/revenue-operations/${slug}`} sectionName="Revenue operations" sectionPath="/services/revenue-operations" />
     <InteriorHero title={service.title} description={service.intro} image="/images/revenue-operations.webp" imageAlt="Illustration of organized claim documents and connected healthcare revenue tasks" variant="revenue" breadcrumb={[{ label: "Home", href: "/" }, { label: "Revenue operations", href: "/services/revenue-operations" }, { label: revenueNames[serviceSlug], href: `/services/revenue-operations/${slug}` }]}>
-      <div className="interior-hero-actions"><a className="button button-teal" href="/contact#consultation-form">Request a consultation <ArrowUpRight size={17}/></a><a className="text-link" href="#service-scope">What’s included <ArrowUpRight size={16}/></a></div>
+      <div className="interior-hero-actions"><a className="button button-teal" href={consultationHref}>Request a consultation <ArrowUpRight size={17} aria-hidden="true"/></a><a className="text-link" href="#service-scope">What’s included <ArrowUpRight size={16} aria-hidden="true"/></a></div>
     </InteriorHero>
     <section className="interior-section service-scope-section" id="service-scope"><div className="container service-overview-grid"><div className="service-overview-copy"><h2>What the work can include.</h2><p>{service.overview}</p><div className="scope-agreement"><h3>Scope tailored to your practice</h3><p>These are common work areas. We agree on responsibilities, systems, and deliverables together.</p><ul className="scope-agreement-list"><li><Check size={16}/> Defined responsibilities</li><li><Check size={16}/> Agreed systems and access</li><li><Check size={16}/> Clear communication and reporting</li></ul></div></div><div className="service-scope-list">{service.items.map(([title, body]) => <article key={title}><h3>{title}</h3><p>{body}</p></article>)}</div></div></section>
     <section className="interior-section service-flow-section"><div className="container"><ServiceWorkbench title={`${revenueNames[serviceSlug]} in context`} stages={revenueFlow[serviceSlug]}/></div></section>
     <section className="interior-section related-services"><div className="container"><div className="related-services-heading"><h2>See how the work connects.</h2><a className="text-link" href="/services/revenue-operations">All revenue services <ArrowUpRight size={16}/></a></div><div className="related-service-links">{related[serviceSlug].map(relatedSlug => <a href={`/services/revenue-operations/${relatedSlug}`} key={relatedSlug}><h3>{revenueNames[relatedSlug]}</h3><ArrowUpRight size={22} aria-hidden="true"/></a>)}</div></div></section>
-    <PageClose title={service.question} description="Tell us about your current workflow. We’ll discuss where focused support could fit." label="Talk with Meddot"/>
+    <PageClose title={service.question} description="Tell us about your current workflow. We’ll discuss where focused support could fit." href={consultationHref}/>
   </main>;
 }
