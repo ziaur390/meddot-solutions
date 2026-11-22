@@ -1,5 +1,7 @@
 # Meddot Solutions launch guide
 
+**Preferred plan updated November 22, 2026:** use the [Cloudflare-first launch plan](CLOUDFLARE-LAUNCH.md) and its [printable Cloudflare guide](docs/meddot-cloudflare-launch-guide.html) for the new domain, hosting, and email decisions. The live site is still on Vercel. The instructions below remain the current Vercel deployment and rollback reference; no migration or purchase is implied.
+
 **Prepared November 20, 2026.** Publish the website, connect a domain, set up business email, and maintain the launch. The companion [printable guide](docs/meddot-launch-guide.html) opens in a browser; use **Print → Save as PDF** for a shareable copy.
 
 ## Your setup at a glance

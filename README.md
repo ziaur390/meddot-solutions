@@ -3,8 +3,9 @@
 Medical billing, revenue cycle support, and practice growth services for independent U.S. healthcare practices.
 
 - Live website: [meddot-solutions.vercel.app](https://meddot-solutions.vercel.app/)
-- Start here: [complete deployment, domain, and email guide](DEPLOY-VERCEL.md)
-- Open or print: [illustrated launch guide](docs/meddot-launch-guide.html)
+- Preferred next setup: [Cloudflare-first domain, hosting, security, and email plan](CLOUDFLARE-LAUNCH.md)
+- Open or print: [Cloudflare launch guide](docs/meddot-cloudflare-launch-guide.html)
+- Current deployment and rollback: [Vercel guide](DEPLOY-VERCEL.md)
 - Public launch settings: copy [.env.example](.env.example) to ignored `.env.local` for local configuration; set the same public variables in Vercel and redeploy.
 
 Vercel builds with `npm run build:vercel`, including verified local Satoshi font preparation. After building, `npm run test:security` checks the consultation flow and browser protections. The current form prepares an email draft; the visitor sends it from their own email app.
