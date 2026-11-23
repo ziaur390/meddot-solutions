@@ -1,18 +1,18 @@
 # Meddot Solutions: Cloudflare-first launch plan
 
-**Updated November 23, 2026.** Expected traffic is approximately **100 visits/day, with a planning maximum of 500/day**. The plan uses **free Cloudflare static hosting**, Cloudflare domain/DNS, and a free professional mailbox where eligible or one inexpensive paid mailbox. Your account and GitHub connection are created. The static migration is locally validated; public Cloudflare deployment is being configured and has not yet been verified. The current public website remains on [Vercel](https://meddot-solutions.vercel.app/). No domain or mailbox has been purchased, and no DNS cutover is complete.
+**Updated November 23, 2026. Cloudflare hosting is live:** [meddot-solutions.ziaurrahman-26261.workers.dev](https://meddot-solutions.ziaurrahman-26261.workers.dev/). Expected traffic is approximately **100 visits/day, with a planning maximum of 500/day**. The site uses **free Cloudflare static hosting** with a small consultation Worker. The GitHub build and public HTTP checks passed; [Vercel](https://meddot-solutions.vercel.app/) remains a working fallback. A purchased domain, business mailbox, verified MFA setup, Turnstile, and automatic email delivery remain separate pending steps. No custom-domain DNS cutover is complete.
 
 **Start here:** follow the [step-by-step migration guide](CLOUDFLARE-MIGRATION.md), also available as a [printable migration guide](docs/meddot-cloudflare-migration-guide.html). It contains the actual Worker address, build settings, and current deployment status.
 
-Open the [printable Cloudflare guide](docs/meddot-cloudflare-launch-guide.html) in a browser and use **Print → Save as PDF**. The existing [Vercel guide](DEPLOY-VERCEL.md) remains the reference for the live deployment and fallback.
+Open the [printable Cloudflare guide](docs/meddot-cloudflare-launch-guide.html) in a browser and use **Print → Save as PDF**. The existing [Vercel guide](DEPLOY-VERCEL.md) remains the fallback deployment reference.
 
 ## 1. Recommended setup
 
 | Service | Recommended role |
 |---|---|
 | Cloudflare Registrar and DNS | Own and renew the domain; manage website and email records |
-| Cloudflare Workers Free with Static Assets | Locally validated: deliver prebuilt marketing pages without server rendering on every visit |
-| A small same-origin Worker | Locally validated consultation review; production CPU/quota monitoring follows deployment |
+| Cloudflare Workers Free with Static Assets | Live: deliver prebuilt marketing pages without server rendering on every visit |
+| A small same-origin Worker | Live consultation review; monitor production CPU and quotas |
 | Cloudflare Turnstile and scoped rate limiting | Planned form protection; not implemented yet |
 | Cloudflare Email Sending Beta | Optional future application notifications; not active and not a full staff mailbox |
 | Zoho Mail Free, if eligible; otherwise Mail Lite | Real business inbox for everyday branded sending, receiving, and replies |
@@ -58,7 +58,7 @@ Google Workspace Business Starter is an alternative: **$7/user/month with a one-
 4. Keep an external recovery address that works if the new domain's email stops working.
 5. Record renewal date and account ownership. Keep credentials and recovery codes outside GitHub and shared guides.
 
-Cloudflare Registrar uses Cloudflare nameservers. Buying there does not force immediate website migration: the current Vercel deployment can continue while the Cloudflare version is tested. Do not replace working website or email records during registration. [Registration requirements](https://developers.cloudflare.com/registrar/get-started/register-domain/)
+Cloudflare Registrar uses Cloudflare nameservers. Buying there does not automatically attach the new name to the live Worker. Connect it only after reviewing the domain settings, and preserve working email records. The Vercel fallback can remain available during custom-domain setup. [Registration requirements](https://developers.cloudflare.com/registrar/get-started/register-domain/)
 
 ## 4. Migrate the website in stages
 
@@ -68,11 +68,11 @@ The prepared build keeps the design, content, Satoshi font, images, and crawlabl
 
 Service preselection, same-origin form validation, private review responses, security headers, metadata, and real 404s have been implemented. Assets are served directly, with Worker-first routing restricted to API paths. Local checks passed for **26 exported pages, a Worker dry run, 12 Cloudflare security tests, and 10 Next.js fallback security tests**. Browser checks covered AI/billing selections, invalid/duplicate selections, service-link navigation, and a synthetic review. Production resource usage still needs measurement. [Static Assets routing](https://developers.cloudflare.com/workers/static-assets/routing/worker-script/)
 
-Use `wrangler.cloudflare.jsonc`, not the retained Sites/Vinext deployment helpers. Its compatibility date is pinned to `2026-11-09` for the installed runtime. The Git connection targets `ziaur390/meddot-solutions/main`; the known testing URL is `https://meddot-solutions.ziaurrahman-26261.workers.dev`, currently disabled while publication is prepared.
+Use `wrangler.cloudflare.jsonc`, not the retained Sites/Vinext deployment helpers. Its compatibility date is pinned to `2026-11-09` for the installed runtime. The Git connection targets `ziaur390/meddot-solutions/main`; the public URL is `https://meddot-solutions.ziaurrahman-26261.workers.dev`.
 
-1. Follow the [migration guide](CLOUDFLARE-MIGRATION.md) to confirm build/deploy commands and canonical build variables.
-2. Publish the validated commit, enable/check the testing route, and verify the public site in a browser.
-3. Repeat form, headers, navigation, image/font, sitemap, and 404 checks on Cloudflare itself; monitor request/CPU errors and quotas.
+1. Use the [migration guide](CLOUDFLARE-MIGRATION.md) for the saved build/deploy commands and canonical variables.
+2. The first release is published. Public HTTP checks passed for pages, assets, font integrity, sitemap/robots, real 404s, form review, and cross-origin/method rejection.
+3. A transport error prevented the in-app live visual preview; local interactive browser checks passed. Check the public site in your own desktop/mobile browser, then monitor request/CPU errors and quotas.
 4. Keep the working Vercel deployment and configuration as rollback until the replacement is stable.
 5. Buy/connect the custom domain separately, choose apex or `www`, update the canonical URL, rebuild, and verify redirects/HTTPS.
 
@@ -118,8 +118,10 @@ No provider can promise that every visitor and every email will always get throu
 
 On Free, review dynamic requests, CPU errors, email delivery, and asset routing after launch and during traffic spikes. Upgrade only for a demonstrated need: recurring CPU errors despite sensible optimization, approaching the account's dynamic-request quota, required automated emails to arbitrary recipients, or another necessary paid capability. 500 visits/day alone is not an upgrade trigger. Do not upgrade a broken route or mail configuration without fixing its cause.
 
+The deployment configuration enables basic Worker logs and redacts query strings. Review current [Observability ingestion and retention limits](https://developers.cloudflare.com/observability/pricing/) and monitor errors after release. A few successful smoke-test requests do not establish load capacity.
+
 If Paid becomes appropriate, start with billing/usage alerts and review request, CPU, email, and image usage. Its $5 baseline includes usage allowances, not unlimited execution. A Workers hard account spending limit can interrupt all Workers, including email invocations; it is not an exact final-bill cap. Choose that tradeoff deliberately if availability is the priority. [Spend management](https://developers.cloudflare.com/workers/platform/spend-management/)
 
 Before DNS cutover, record the prior configuration and prove you can return traffic to Vercel. After switching, retest HTTPS, redirects, pages, images, fonts, forms, email, and crawlable metadata. Keep the old project until the new setup is stable. Review inbox/spam and errors each business day, updates weekly, and domain/payment renewals before expiry.
 
-**Next steps:** review the domain's final checkout quote, confirm whether Zoho Free is available, and prepare/test the free hosting migration. Purchase Mail Lite only if needed. Buy Workers Paid only if runtime testing or required features justify it. Buying the domain does not require switching the live website on the same day.
+**Next steps:** check the live appearance in your own browser, review the domain's final checkout quote, confirm Zoho Free eligibility, and verify MFA/recovery settings. Purchase Mail Lite only if needed. Add Turnstile or automatic notifications as separate tested work, and buy Workers Paid only for measured needs. Domain setup and email setup can proceed separately from the already-live free hosting.

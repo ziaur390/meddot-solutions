@@ -2,16 +2,18 @@
 
 Medical billing, revenue cycle support, and practice growth services for independent U.S. healthcare practices.
 
-- Live website: [meddot-solutions.vercel.app](https://meddot-solutions.vercel.app/)
-- Cloudflare testing address: [meddot-solutions.ziaurrahman-26261.workers.dev](https://meddot-solutions.ziaurrahman-26261.workers.dev/) — public deployment verification pending.
+- Live website: [meddot-solutions.ziaurrahman-26261.workers.dev](https://meddot-solutions.ziaurrahman-26261.workers.dev/)
+- Working Vercel fallback: [meddot-solutions.vercel.app](https://meddot-solutions.vercel.app/)
 - Cloudflare setup steps: [migration and owner guide](CLOUDFLARE-MIGRATION.md), also [printable](docs/meddot-cloudflare-migration-guide.html)
 - Preferred next setup: [Cloudflare-first domain, hosting, security, and email plan](CLOUDFLARE-LAUNCH.md)
 - Open or print: [Cloudflare launch guide](docs/meddot-cloudflare-launch-guide.html)
-- Traffic plan: free Cloudflare static hosting for approximately 100–500 visits/day, with Zoho Free if eligible or one low-cost mailbox. Local static build, Worker dry run, 12 Cloudflare security tests, and 10 Next.js fallback tests passed. Account/Git connection are created; public Cloudflare deployment and production resource checks are pending. Workers Paid remains an optional fallback.
-- Current deployment and rollback: [Vercel guide](DEPLOY-VERCEL.md)
+- Traffic plan: live free Cloudflare static hosting for approximately 100–500 visits/day, with Zoho Free if eligible or one low-cost mailbox still to configure. Local static build, Worker dry run, 12 Cloudflare security tests, 10 Next.js fallback tests, GitHub quality workflow, and public HTTP checks passed. Monitor production resource use; Workers Paid remains optional.
+- Fallback deployment and rollback: [Vercel guide](DEPLOY-VERCEL.md)
 - Public launch settings: use ignored `.env.local` locally. The Vercel fallback uses [.env.example](.env.example); the [Cloudflare guide](CLOUDFLARE-MIGRATION.md) explains its canonical build variable and configuration-owned `CONTACT_EMAIL`.
 
 Vercel builds with `npm run build:vercel`, including verified local Satoshi font preparation. After building, `npm run test:security` checks the consultation flow and browser protections. The current form prepares an email draft; the visitor sends it from their own email app.
+
+Deployment source: [d41fae7](https://github.com/ziaur390/meddot-solutions/commit/d41fae7c0019c57460f80d2383e1c03aa0489329), with [passing GitHub checks](https://github.com/ziaur390/meddot-solutions/actions/runs/45120810948). An in-app transport error prevented a live visual preview; local interactive browser checks passed. Verify live appearance on your own devices. Domain, mailbox, MFA verification, Turnstile, and automatic email delivery remain pending.
 
 The new deployment uses `npm run build:cloudflare`, `npm run check:cloudflare`, and `npm run deploy:cloudflare` with `wrangler.cloudflare.jsonc`. The remaining developer notes describe the retained Sites runtime, not the new standalone Cloudflare static deployment. Follow the migration guide for that path.
 

@@ -4,6 +4,11 @@
   "main": "cloudflare/worker.ts",
   "compatibility_date": "2026-11-09",
   "workers_dev": true,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+    "redact_query_string": true
+  },
   "assets": {
     "directory": ".cloudflare-build/assets",
     "binding": "ASSETS",

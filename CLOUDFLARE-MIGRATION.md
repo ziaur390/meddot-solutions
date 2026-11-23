@@ -1,25 +1,27 @@
 # Deploy Meddot on Cloudflare Free
 
-**Updated November 23, 2026. Status:** your Cloudflare account is created and connected to the correct GitHub repository and `main` branch. The static migration passed local validation: 26 exported pages, a successful Worker dry run, 12 Cloudflare security tests, and 10 Next.js fallback security tests. Browser checks covered service preselection and a synthetic consultation review. Public deployment is being configured and has not yet been verified. No domain or mailbox has been purchased. The [existing Vercel site](https://meddot-solutions.vercel.app/) remains the fallback.
+**Updated November 23, 2026. Status: Cloudflare hosting is live.** The connected GitHub build published [commit d41fae7](https://github.com/ziaur390/meddot-solutions/commit/d41fae7c0019c57460f80d2383e1c03aa0489329) to [meddot-solutions.ziaurrahman-26261.workers.dev](https://meddot-solutions.ziaurrahman-26261.workers.dev/). GitHub's [quality workflow passed](https://github.com/ziaur390/meddot-solutions/actions/runs/45120810948), and the [Vercel fallback](https://meddot-solutions.vercel.app/) deployed successfully. No domain or mailbox has been purchased; MFA verification, Turnstile, and automatic email delivery remain pending.
+
+Local validation passed: 26 exported pages, Worker dry run, 12 Cloudflare security tests, and 10 Next.js fallback security tests. Public HTTP checks passed for the homepage, sitemap pages and AI page, robots, assets, font integrity, real missing-page responses, valid consultation review, cross-origin rejection, and method restrictions. An in-app browser transport error prevented a live visual preview; local browser service-selection and review checks passed. Confirm the live appearance and mobile experience in your own browser before announcing it.
 
 Open the [printable migration guide](docs/meddot-cloudflare-migration-guide.html) in a browser and use **Print → Save as PDF** for a shareable copy.
 
 The new path serves prebuilt pages, local Satoshi fonts, and images as **Cloudflare Static Assets**. A small same-origin Worker handles the consultation review. The form still prepares an email draft that visitors must send themselves; automatic email delivery and Turnstile are separate pending work.
 
-## 1. Confirm your account and testing address
+## 1. Confirm your account and live address
 
 1. Use your existing Cloudflare account; do not create a duplicate project or account.
 2. Confirm your account email is verified. Enable MFA and securely save recovery codes; these account protections have not been verified in this project review.
 3. Open **Workers & Pages → meddot-solutions**. Use the **Free** Workers plan. Workers Paid and a payment card are not required for this hosting path; domain registration and optional paid email are separate purchases.
 4. The Git connection is `ziaur390/meddot-solutions`, branch `main`. The known account subdomain is `ziaurrahman-26261`. [Subdomain instructions](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/)
 
-The configured testing URL is:
+The live Cloudflare URL is:
 
 ```text
 https://meddot-solutions.ziaurrahman-26261.workers.dev
 ```
 
-The `workers.dev` route is currently disabled while deployment is prepared. Do not assume this URL is live until the successful deployment and browser checks are confirmed. Cloudflare recommends an owned custom domain for a production business website. Do not share passwords, recovery codes, session cookies, or API tokens.
+The `workers.dev` route is enabled and returned the expected site over HTTPS. Cloudflare recommends an owned custom domain for a production business website; that remains the next domain step. Do not share passwords, recovery codes, session cookies, or API tokens.
 
 ## 2. Prepare the project locally
 
@@ -42,6 +44,7 @@ The deployment configuration is `wrangler.cloudflare.jsonc`:
 | Generated static assets | `.cloudflare-build/assets` |
 | Compatibility date | `2026-11-09`, supported by the installed runtime |
 | Runtime | Standard Worker APIs; no Node compatibility mode required |
+| Observability | Basic Worker logs configured, with query-string redaction |
 | Public and form recipient | `vars.CONTACT_EMAIL`, currently `ziaurrahman.26261@gmail.com` |
 
 The build takes the public contact address from `vars.CONTACT_EMAIL`. If `NEXT_PUBLIC_CONTACT_EMAIL` is also set, it **must match** or the build fails. When changing inbox later, update the configuration, rebuild, and redeploy; do not change only a dashboard runtime value and leave the public pages pointing elsewhere. These email addresses and site URLs are public configuration, never credentials.
@@ -84,7 +87,7 @@ GitHub is already connected. Open **Workers & Pages → meddot-solutions → Set
 | Build variable `NEXT_PUBLIC_SITE_URL` | `https://meddot-solutions.ziaurrahman-26261.workers.dev` |
 | `NEXT_PUBLIC_CONTACT_EMAIL`, if supplied | Exact match for configuration `CONTACT_EMAIL` |
 
-The build/deploy commands are saved; build-variable verification and the first public release are in progress. Once the validated commit reaches `main`, trigger or retry the production build. Inspect its build/deployment logs and confirm success before enabling/checking the `workers.dev` route under **Settings → Domains & Routes**.
+The commands and build variables above are saved, and the first public release succeeded. Future pushes to `main` trigger the connected build. Inspect build/deployment logs before treating a release as successful, and check the live URL under **Settings → Domains & Routes**. If a build fails, fix its first meaningful error and retry; do not replace the explicit deployment wrapper with a generic command.
 
 Keep nonproduction branch/preview deployments disabled initially. Use the explicit deploy wrapper for this nondefault configuration filename. Build-variable changes need a new build. Git authorization does not require a separate local Wrangler login. If reconnecting GitHub later, approve access yourself and select only this repository where possible. [Workers Builds settings](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/)
 
@@ -120,7 +123,7 @@ Use **one root MX provider**: Zoho and root Cloudflare Email Routing must not be
 ## Before announcing the site
 
 - Verify pages, mobile layout, menus, fonts/images, HTTPS, redirects, metadata, 404s, and the consultation draft recipient.
-- Inspect Worker requests/CPU errors and Free quotas; 500 daily visits alone is not a reason to buy Paid.
+- Inspect Worker requests, CPU errors, and configured logs. Query strings are redacted in the deployment configuration. Review current [Observability ingestion and retention limits](https://developers.cloudflare.com/observability/pricing/); a small successful smoke test is not a load test. 500 daily visits alone is not a reason to buy Paid.
 - Keep inquiries general: no patient records or PHI. This setup is not a HIPAA-compliance certification.
 - Automatic owner notifications, confirmation emails, and server-verified Turnstile require separate configuration and implementation. Do not describe them as active yet.
 - Confirm the inbox owner, renewal reminders, monitoring, and a tested rollback path.
