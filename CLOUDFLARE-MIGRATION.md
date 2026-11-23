@@ -1,5 +1,7 @@
 # Deploy Meddot on Cloudflare Free
 
+**Next launch steps:** use the [complete owner handbook](OWNER-HANDBOOK.md), also [printable](docs/meddot-owner-handbook.html), for detailed domain, business email, consultation delivery, security, search, and maintenance instructions.
+
 **Updated November 23, 2026. Status: Cloudflare hosting is live.** The connected GitHub build published [commit d41fae7](https://github.com/ziaur390/meddot-solutions/commit/d41fae7c0019c57460f80d2383e1c03aa0489329) to [meddot-solutions.ziaurrahman-26261.workers.dev](https://meddot-solutions.ziaurrahman-26261.workers.dev/). GitHub's [quality workflow passed](https://github.com/ziaur390/meddot-solutions/actions/runs/45120810948), and the [Vercel fallback](https://meddot-solutions.vercel.app/) deployed successfully. No domain or mailbox has been purchased; MFA verification, Turnstile, and automatic email delivery remain pending.
 
 Local validation passed: 26 exported pages, Worker dry run, 12 Cloudflare security tests, and 10 Next.js fallback security tests. Public HTTP checks passed for the homepage, sitemap pages and AI page, robots, assets, font integrity, real missing-page responses, valid consultation review, cross-origin rejection, and method restrictions. An in-app browser transport error prevented a live visual preview; local browser service-selection and review checks passed. Confirm the live appearance and mobile experience in your own browser before announcing it.

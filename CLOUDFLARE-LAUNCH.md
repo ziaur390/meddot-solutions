@@ -1,5 +1,7 @@
 # Meddot Solutions: Cloudflare-first launch plan
 
+For the full setup procedure after hosting, open the [owner handbook](OWNER-HANDBOOK.md) or its [printable version](docs/meddot-owner-handbook.html). This guide remains the cost/options reference.
+
 **Updated November 23, 2026. Cloudflare hosting is live:** [meddot-solutions.ziaurrahman-26261.workers.dev](https://meddot-solutions.ziaurrahman-26261.workers.dev/). Expected traffic is approximately **100 visits/day, with a planning maximum of 500/day**. The site uses **free Cloudflare static hosting** with a small consultation Worker. The GitHub build and public HTTP checks passed; [Vercel](https://meddot-solutions.vercel.app/) remains a working fallback. A purchased domain, business mailbox, verified MFA setup, Turnstile, and automatic email delivery remain separate pending steps. No custom-domain DNS cutover is complete.
 
 **Start here:** follow the [step-by-step migration guide](CLOUDFLARE-MIGRATION.md), also available as a [printable migration guide](docs/meddot-cloudflare-migration-guide.html). It contains the actual Worker address, build settings, and current deployment status.

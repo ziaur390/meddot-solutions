@@ -2,6 +2,8 @@
 
 Medical billing, revenue cycle support, and practice growth services for independent U.S. healthcare practices.
 
+Start with the [complete owner launch handbook](docs/meddot-owner-handbook.html), or browse the [guide directory](GUIDES.md), for domain, email, form delivery, security, search, and maintenance instructions.
+
 - Live website: [meddot-solutions.ziaurrahman-26261.workers.dev](https://meddot-solutions.ziaurrahman-26261.workers.dev/)
 - Working Vercel fallback: [meddot-solutions.vercel.app](https://meddot-solutions.vercel.app/)
 - Cloudflare setup steps: [migration and owner guide](CLOUDFLARE-MIGRATION.md), also [printable](docs/meddot-cloudflare-migration-guide.html)

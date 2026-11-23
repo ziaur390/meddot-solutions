@@ -1,5 +1,7 @@
 # Meddot Solutions launch guide
 
+For current owner tasks, start with the [full launch handbook](OWNER-HANDBOOK.md) or its [printable version](docs/meddot-owner-handbook.html). The instructions below cover the Vercel fallback.
+
 **Hosting updated November 23, 2026:** the website is live on [Cloudflare Free](https://meddot-solutions.ziaurrahman-26261.workers.dev/). The Git build and public HTTP checks passed; a transport error prevented an in-app live visual preview, while local interactive browser checks passed. Follow the [Cloudflare migration guide](CLOUDFLARE-MIGRATION.md), also [printable](docs/meddot-cloudflare-migration-guide.html), and [budget plan](CLOUDFLARE-LAUNCH.md) for ongoing setup. Vercel remains a working fallback; the instructions below describe that fallback. No domain or mailbox purchase is complete. Workers Paid is optional.
 
 **Prepared November 20, 2026.** Publish the website, connect a domain, set up business email, and maintain the launch. The companion [printable guide](docs/meddot-launch-guide.html) opens in a browser; use **Print → Save as PDF** for a shareable copy.
