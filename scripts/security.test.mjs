@@ -11,6 +11,9 @@ let origin;
 let server;
 let startupLog = "";
 const root = fileURLToPath(new URL("../", import.meta.url));
+const testRuntime = process.env.MEDDOT_TEST_RUNTIME || "next";
+assert.ok(["next", "cloudflare"].includes(testRuntime), "MEDDOT_TEST_RUNTIME must be next or cloudflare");
+const isCloudflare = testRuntime === "cloudflare";
 const validFields = { name: "Security review", practice: "Example practice", email: "preview@example.com", phone: "", service: "Not sure yet", message: "A general consultation inquiry. No patient information." };
 
 before(async () => {
@@ -20,10 +23,19 @@ before(async () => {
   const port = reservation.address().port;
   await new Promise(resolve => reservation.close(resolve));
   origin = `http://127.0.0.1:${port}`;
-  server = spawn(process.execPath, [fileURLToPath(new URL("../node_modules/next/dist/bin/next", import.meta.url)), "start", "--hostname", "127.0.0.1", "--port", String(port)], { cwd: root, env: { ...process.env, NODE_ENV: "production" }, stdio: ["ignore", "pipe", "pipe"], windowsHide: true });
+  const serverArguments = isCloudflare
+    ? [fileURLToPath(new URL("../node_modules/wrangler/bin/wrangler.js", import.meta.url)), "dev", "--config", "wrangler.cloudflare.jsonc", "--local", "--ip", "127.0.0.1", "--port", String(port), "--inspector-port", "0"]
+    : [fileURLToPath(new URL("../node_modules/next/dist/bin/next", import.meta.url)), "start", "--hostname", "127.0.0.1", "--port", String(port)];
+  server = spawn(process.execPath, serverArguments, { cwd: root, env: { ...process.env, NODE_ENV: "production", ...(isCloudflare ? {
+    WRANGLER_SEND_METRICS: "false", CLOUDFLARE_CF_FETCH_ENABLED: "false", WRANGLER_LOG_PATH: ".wrangler/logs",
+    WRANGLER_REGISTRY_PATH: fileURLToPath(new URL("../.wrangler/dev-registry", import.meta.url)),
+    MINIFLARE_REGISTRY_PATH: fileURLToPath(new URL("../.wrangler/registry", import.meta.url)),
+    XDG_CONFIG_HOME: process.env.XDG_CONFIG_HOME || fileURLToPath(new URL("../.wrangler/local-config", import.meta.url)),
+  } : {}) }, stdio: ["ignore", "pipe", "pipe"], windowsHide: true });
   for (const stream of [server.stdout, server.stderr]) stream.on("data", chunk => { startupLog = (startupLog + chunk).slice(-10000); });
   server.on("error", error => { startupLog += error.message; });
-  for (let attempt = 0; attempt < 100; attempt++) {
+  const startupDeadline = Date.now() + (isCloudflare ? 45000 : 25000);
+  while (Date.now() < startupDeadline) {
     if (server.exitCode !== null) throw new Error(`Production server exited: ${startupLog}`);
     try {
       const response = await fetch(origin, { signal: AbortSignal.timeout(1000) });
@@ -33,11 +45,15 @@ before(async () => {
     await delay(100);
   }
   throw new Error(`Production server was not ready: ${startupLog}`);
-}, { timeout: 30000 });
+}, { timeout: isCloudflare ? 60000 : 30000 });
 
 after(async () => {
   if (!server || server.exitCode !== null) return;
-  server.kill();
+  if (isCloudflare && process.platform === "win32") {
+    // Wrangler owns a workerd subprocess. Terminate only this test server's tree.
+    const termination = spawn("taskkill", ["/PID", String(server.pid), "/T", "/F"], { stdio: "ignore", windowsHide: true });
+    await Promise.race([new Promise(resolve => { termination.once("exit", resolve); termination.once("error", resolve); }), delay(5000)]);
+  } else server.kill();
   await Promise.race([once(server, "exit"), delay(2000)]);
   if (server.exitCode === null) server.kill("SIGKILL");
 });
@@ -80,22 +96,30 @@ test("a valid inquiry reaches review and remains private, unindexed, and script-
   assert.ok(csp.includes(`'sha256-${createHash("sha256").update(style).digest("base64")}'`));
 });
 
-test("service inquiries preserve valid intent and reject unknown or repeated selections", async () => {
-  for (const [query, selected] of [
-    ["service=medical-billing", "Medical billing"],
-    ["service=healthcare-web-development", "Healthcare web development"],
-    ["service=healthcare-ai", "Healthcare AI (in development)"],
-    ["service=not-a-service", ""],
-    ["service=medical-billing&service=credentialing", ""],
+test("static contact HTML keeps a complete accessible service selector for every inquiry URL", async () => {
+  for (const query of [
+    "",
+    "service=medical-billing",
+    "service=healthcare-web-development",
+    "service=healthcare-ai",
+    "service=not-a-service",
+    "service=medical-billing&service=credentialing",
   ]) {
     const response = await fetch(`${origin}/contact?${query}`);
     assert.equal(response.status, 200);
     const html = await response.text();
     const select = html.match(/<select\b[^>]*id="service"[\s\S]*?<\/select>/)?.[0];
     assert.ok(select);
+    assert.match(html, /<label\b[^>]*for="service"/);
+    assert.match(select, /<select\b[^>]*\bname="service"[^>]*\brequired(?:="")?/);
+    for (const label of ["Not sure yet", "Medical billing", "Revenue cycle management", "Medical coding", "Credentialing", "AR recovery", "Specialty billing", "Monthly billing audit", "Clearinghouse solutions", "EHR integration", "EMR integration", "EDI clearinghouse setup", "Healthcare SEO", "Healthcare Google Ads", "Healthcare web development", "GoHighLevel services", "Healthcare AI (in development)"]) {
+      assert.ok(select.includes(`value="${label}"`), `Missing service choice: ${label}`);
+    }
     const option = [...select.matchAll(/<option\b([^>]*)>/g)].find(match => /\bselected(?:="")?/.test(match[1]));
     assert.ok(option);
-    assert.equal(option[1].match(/\bvalue="([^"]*)"/)?.[1], selected);
+    // Query-based preselection is a browser enhancement. Static/no-JS HTML must
+    // always offer the same usable blank selector rather than depend on SSR.
+    assert.equal(option[1].match(/\bvalue="([^"]*)"/)?.[1], "");
   }
 });
 
@@ -164,4 +188,42 @@ test("invalid, duplicate, unknown, and overlong fields cannot bypass validation"
     assert.equal(response.status, 400);
     await response.text();
   }
+});
+
+test("Cloudflare static assets retain security headers and missing routes stay missing", { skip: !isCloudflare }, async () => {
+  const asset = await fetch(`${origin}/billing-team-hero.webp`);
+  assert.equal(asset.status, 200);
+  assert.equal(asset.headers.get("x-content-type-options"), "nosniff");
+  assert.match(asset.headers.get("content-type"), /^image\/webp(?:;|$)/);
+  await asset.arrayBuffer();
+
+  for (const path of ["/this-page-does-not-exist", "/_next/static/this-script-does-not-exist.js"]) {
+    const response = await fetch(`${origin}${path}`);
+    assert.equal(response.status, 404, `${path} must not fall back to the homepage`);
+    assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+    await response.text();
+  }
+});
+
+test("Cloudflare rejects unsupported consultation methods and protects unknown API responses", { skip: !isCloudflare }, async () => {
+  function assertPrivateApiResponse(response) {
+    assert.match(response.headers.get("cache-control"), /no-store/);
+    assert.match(response.headers.get("x-robots-tag"), /noindex/);
+    assert.equal(response.headers.get("referrer-policy"), "no-referrer");
+    assert.equal(response.headers.get("x-content-type-options"), "nosniff");
+    assert.match(response.headers.get("content-security-policy"), /script-src 'none'/);
+  }
+
+  for (const method of ["GET", "HEAD", "PUT", "OPTIONS"]) {
+    const response = await fetch(`${origin}/api/consultation`, { method });
+    assert.equal(response.status, 405);
+    assert.equal(response.headers.get("allow"), "POST");
+    assertPrivateApiResponse(response);
+    await response.text();
+  }
+
+  const response = await fetch(`${origin}/api/this-route-does-not-exist`);
+  assert.equal(response.status, 404);
+  assertPrivateApiResponse(response);
+  await response.text();
 });

@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { digitalServices, revenueServices } from "@/lib/service-content";
 import { SITE_URL } from "@/lib/site-metadata";
 
+export const dynamic = "force-static";
+
 const staticPages = [
   "",
   "/about",

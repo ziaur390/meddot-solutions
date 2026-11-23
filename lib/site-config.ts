@@ -1,3 +1,5 @@
+import { DEFAULT_CONTACT_EMAIL, validateContactEmail } from "./contact-email";
+
 const defaultSiteUrl = "https://meddot-solutions.vercel.app";
 const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || defaultSiteUrl;
 const siteUrl = new URL(configuredUrl);
@@ -7,8 +9,4 @@ if (siteUrl.protocol !== "https:" || siteUrl.username || siteUrl.password || sit
 }
 
 export const SITE_URL = siteUrl.origin;
-export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || "ziaurrahman.26261@gmail.com";
-
-if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?\.[A-Za-z]{2,}$/.test(CONTACT_EMAIL)) {
-  throw new Error("NEXT_PUBLIC_CONTACT_EMAIL must contain one email address without a display name or additional parameters.");
-}
+export const CONTACT_EMAIL = validateContactEmail(process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || DEFAULT_CONTACT_EMAIL);

@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "meddot-solutions",
+  "main": "cloudflare/worker.ts",
+  "compatibility_date": "2026-11-09",
+  "workers_dev": true,
+  "assets": {
+    "directory": ".cloudflare-build/assets",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api", "/api/*"],
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "vars": {
+    "CONTACT_EMAIL": "ziaurrahman.26261@gmail.com"
+  }
+}

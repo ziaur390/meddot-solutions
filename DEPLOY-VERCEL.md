@@ -1,6 +1,6 @@
 # Meddot Solutions launch guide
 
-**Preferred plan updated November 22, 2026:** use the [Cloudflare-first launch plan](CLOUDFLARE-LAUNCH.md) and its [printable Cloudflare guide](docs/meddot-cloudflare-launch-guide.html) for the new domain, hosting, and email decisions. The live site is still on Vercel. The instructions below remain the current Vercel deployment and rollback reference; no migration or purchase is implied.
+**Preferred plan updated November 23, 2026:** follow the [step-by-step Cloudflare migration guide](CLOUDFLARE-MIGRATION.md), also [printable](docs/meddot-cloudflare-migration-guide.html), and the [Cloudflare budget plan](CLOUDFLARE-LAUNCH.md). The account/Git connection and locally validated static migration are prepared; public Cloudflare deployment is pending verification. Target Free hosting for 100–500 visits/day and check Zoho Free before purchasing Mail Lite. Workers Paid is optional. The public site remains on Vercel, and the instructions below remain its deployment/rollback reference. No domain or mailbox purchase is complete.
 
 **Prepared November 20, 2026.** Publish the website, connect a domain, set up business email, and maintain the launch. The companion [printable guide](docs/meddot-launch-guide.html) opens in a browser; use **Print → Save as PDF** for a shareable copy.
 
